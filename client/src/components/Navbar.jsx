@@ -6,7 +6,7 @@ import './Navbar.css';
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">AI Chatbot Builder</Link>
+      <Link to="/" className="navbar-brand">IntelliBot Builder</Link>
       <div className="navbar-links">
         <Link to="/">Home</Link>
         <Link to="/dashboard">Dashboard</Link>
