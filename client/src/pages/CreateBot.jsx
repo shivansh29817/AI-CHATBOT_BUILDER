@@ -21,9 +21,8 @@ const CreateBot = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: Save formData to MongoDB via backend API
     try {
-      const res = await fetch("/api/bots", {
+      const res = await fetch("http://localhost:5000/api/bots", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,20 +31,24 @@ const CreateBot = () => {
       });
 
       const data = await res.json();
-      if (res.ok) {
-        toast.success("Bot created successfully!");
-        setFormData({
-          name: "",
-          tone: "",
-          persona: "",
-          samplePrompt: "",
-          apiKey: "",
-        });
-      } else {
+
+      if (!res.ok) {
+        console.error("❌ Backend returned error:", data);
         toast.error(data.message || "Something went wrong.");
+        return;
       }
+
+      toast.success("✅ Bot created successfully!");
+      setFormData({
+        name: "",
+        tone: "",
+        persona: "",
+        samplePrompt: "",
+        apiKey: "",
+      });
     } catch (err) {
-      toast.error("Server error.");
+      console.error("🚨 Network/server error:", err);
+      toast.error("❌ Server error. Check backend.");
     }
   };
 
@@ -89,7 +92,6 @@ const CreateBot = () => {
           value={formData.apiKey}
           onChange={handleChange}
         />
-
         <button type="submit">Save Bot</button>
       </form>
     </div>

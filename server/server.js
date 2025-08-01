@@ -6,8 +6,11 @@ import mongoose from 'mongoose';
 import botRoutes from './routes/botRoutes.js';
 
 dotenv.config();
+import cors from "cors";
+
 
 const app = express();
+app.use(cors());
 
 // Middleware to parse JSON
 app.use(express.json());

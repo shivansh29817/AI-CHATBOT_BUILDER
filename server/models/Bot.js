@@ -10,6 +10,6 @@ const botSchema = new mongoose.Schema({
   timestamps: true
 });
 
-const Bot = mongoose.model('Bot', botSchema);
+const Bot = mongoose.model('Bot', botSchema, 'Bots');
 
 export default Bot;  // ✅ FIXED: Default export
