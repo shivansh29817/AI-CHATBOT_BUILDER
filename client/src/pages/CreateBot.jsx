@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./CreateBot.css";
 import { toast } from "react-toastify";
+import { getAuth } from "firebase/auth";
 
 const CreateBot = () => {
   const [formData, setFormData] = useState({
@@ -22,10 +23,21 @@ const CreateBot = () => {
     e.preventDefault();
 
     try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (!user) {
+        toast.error("❌ You must be logged in to create a bot.");
+        return;
+      }
+
+      const token = await user.getIdToken();
+
       const res = await fetch("http://localhost:5000/api/bots", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // ✅ Include Firebase ID token
         },
         body: JSON.stringify(formData),
       });

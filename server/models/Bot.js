@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const botSchema = new mongoose.Schema({
+  createdBy: { type: String, required: true }, // ✅ Firebase UID
   name: { type: String, required: true },
   tone: { type: String },
   persona: { type: String },
@@ -12,4 +13,4 @@ const botSchema = new mongoose.Schema({
 
 const Bot = mongoose.model('Bot', botSchema, 'Bots');
 
-export default Bot;  // ✅ FIXED: Default export
+export default Bot;
