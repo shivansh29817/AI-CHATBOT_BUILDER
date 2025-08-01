@@ -1,16 +1,17 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI Chatbot Backend Server",
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "start": "node server.js",
     "dev": "node --experimental-json-modules server.js",
     "dev:nodemon": "nodemon --experimental-json-modules server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Shivansh Mishra",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
