@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./CreateBot.css";
 import { toast } from "react-toastify";
 import { getAuth } from "firebase/auth";
+import BASE_URL from "../config"; // ✅ Import the base URL
 
 const CreateBot = () => {
   const [formData, setFormData] = useState({
@@ -33,11 +34,11 @@ const CreateBot = () => {
 
       const token = await user.getIdToken();
 
-      const res = await fetch("http://localhost:5000/api/bots", {
+      const res = await fetch(`${BASE_URL}/api/bots`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ Include Firebase ID token
+          Authorization: `Bearer ${token}`, // ✅ Firebase ID token
         },
         body: JSON.stringify(formData),
       });

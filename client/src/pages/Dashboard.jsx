@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import './Dashboard.css';
+import BASE_URL from '../config'; // ✅ Import the centralized base URL
 
 const Dashboard = () => {
   const [bots, setBots] = useState([]);
@@ -20,7 +21,7 @@ const Dashboard = () => {
       try {
         const token = await user.getIdToken();
 
-        const res = await axios.get('http://localhost:5000/api/bots', {
+        const res = await axios.get(`${BASE_URL}/api/bots`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
