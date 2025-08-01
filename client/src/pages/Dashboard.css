@@ -1,0 +1,47 @@
+.dashboard-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 24px;
+}
+
+.bot-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.bot-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 18px 20px;
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease;
+}
+
+.bot-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.bot-card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #007acc;
+}
+
+.bot-card p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+  color: #555;
+}

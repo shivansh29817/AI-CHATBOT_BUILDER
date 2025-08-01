@@ -1,14 +1,13 @@
 import express from 'express';
-import { createBot } from '../controllers/botController.js';
+import { createBot, getUserBots } from '../controllers/botController.js';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// @route   POST /api/bots
-// @access  Private
+// ✅ POST /api/bots - Create a new bot (protected)
 router.post('/', protect, createBot);
 
-// You can add GET later when needed
-// router.get('/', protect, getUserBots);
+// ✅ GET /api/bots - Get all bots created by the logged-in user (protected)
+router.get('/', protect, getUserBots);
 
 export default router;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [bots, setBots] = useState([]);
@@ -9,39 +10,49 @@ const Dashboard = () => {
   useEffect(() => {
     const auth = getAuth();
 
-    // Listen for auth state (handles async currentUser issue)
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        console.log('✅ Logged-in user UID:', user.uid);
-        try {
-          const res = await axios.get(`http://localhost:5000/api/bots/${user.uid}`);
-          console.log('✅ Fetched bots:', res.data);
-          setBots(res.data);
-        } catch (err) {
-          console.error('❌ Error fetching bots:', err);
-        }
-      } else {
+      if (!user) {
         console.warn('⚠️ No user is logged in');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const token = await user.getIdToken();
+
+        const res = await axios.get('http://localhost:5000/api/bots', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setBots(res.data);
+        console.log('✅ Bots fetched:', res.data);
+      } catch (error) {
+        console.error('❌ Failed to fetch bots:', error);
       }
 
       setLoading(false);
     });
 
-    return () => unsubscribe(); // Clean up the listener
+    return () => unsubscribe();
   }, []);
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h2>Your Bots</h2>
       {loading ? (
         <p>Loading...</p>
       ) : bots.length === 0 ? (
         <p>No bots created yet.</p>
       ) : (
-        <ul>
+        <ul className="bot-list">
           {bots.map((bot) => (
-            <li key={bot._id}>
-              <strong>{bot.name}</strong> – {bot.tone}
+            <li key={bot._id} className="bot-card">
+              <h3>{bot.name}</h3>
+              <p><strong>Tone:</strong> {bot.tone || 'N/A'}</p>
+              <p><strong>Persona:</strong> {bot.persona || 'N/A'}</p>
+              <p><strong>Sample Prompt:</strong> {bot.samplePrompt || 'N/A'}</p>
             </li>
           ))}
         </ul>
