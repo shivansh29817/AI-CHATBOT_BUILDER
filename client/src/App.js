@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Navbar from './components/Navbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/create-bot" element={<CreateBot />} />
         <Route path="/bot-preview" element={<BotPreview />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/Signup" element={<Signup />} />
       </Routes>
       <ToastContainer />
     </>

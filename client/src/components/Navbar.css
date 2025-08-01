@@ -26,23 +26,111 @@
   right: 0;
   bottom: 0;
   background: linear-gradient(135deg, 
-    rgba(99, 102, 241, 0.1) 0%, 
+    rgba(14, 165, 233, 0.1) 0%, 
     rgba(168, 85, 247, 0.1) 50%, 
-    rgba(236, 72, 153, 0.1) 100%);
+    rgba(249, 115, 22, 0.1) 100%);
   border-radius: inherit;
   z-index: -1;
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.user-email {
+  font-weight: 600;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+.user-email:hover {
+  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: white;
+  min-width: 120px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  z-index: 1000;
+  padding: 0.5rem 0;
+}
+
+.dropdown-content button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  cursor: pointer;
+  color: #1f2937;
+  transition: background 0.3s ease;
+}
+
+.dropdown-content button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Show dropdown on hover */
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+.auth-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #374151;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  color: #1f2937;
 }
 
 .navbar-brand {
   font-size: 1.5rem;
   font-weight: 700;
   text-decoration: none;
-  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  background: linear-gradient(135deg, #0ea5e9, #a855f7, #f97316);
+  background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   position: relative;
   transition: all 0.3s ease;
+  animation: brandColorShift 6s ease-in-out infinite;
 }
 
 .navbar-brand::after {
@@ -106,9 +194,11 @@
   left: 50%;
   width: 0;
   height: 2px;
-  background: linear-gradient(135deg, #6366f1, #a855f7);
+  background: linear-gradient(135deg, #0ea5e9, #a855f7);
+  background-size: 200% 200%;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(-50%);
+  animation: linkColorShift 7s ease-in-out infinite;
 }
 
 .navbar-links a:hover {
@@ -129,16 +219,18 @@
 
 /* Special styling for login button */
 .navbar-links a[href="/login"] {
-  background: linear-gradient(135deg, #6366f1, #a855f7);
+  background: linear-gradient(135deg, #0ea5e9, #a855f7);
+  background-size: 300% 300%;
   color: white;
   border: none;
   font-weight: 600;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  animation: loginButtonShift 4s ease-in-out infinite;
 }
 
 .navbar-links a[href="/login"]:hover {
-  background: linear-gradient(135deg, #5b5bf6, #9d4edd);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+  background: linear-gradient(135deg, #0284c7, #9333ea);
+  box-shadow: 0 8px 25px rgba(14, 165, 233, 0.4);
   transform: translateY(-3px);
 }
 
@@ -216,6 +308,89 @@
   }
 }
 
+/* Animated color palette keyframes */
+@keyframes gradientShift {
+  0%, 100% {
+    background: linear-gradient(135deg, 
+      rgba(14, 165, 233, 0.1) 0%, 
+      rgba(168, 85, 247, 0.1) 50%, 
+      rgba(249, 115, 22, 0.1) 100%);
+  }
+  25% {
+    background: linear-gradient(135deg, 
+      rgba(236, 72, 153, 0.1) 0%, 
+      rgba(79, 70, 229, 0.1) 50%, 
+      rgba(16, 185, 129, 0.1) 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, 
+      rgba(245, 101, 101, 0.1) 0%, 
+      rgba(139, 92, 246, 0.1) 50%, 
+      rgba(59, 130, 246, 0.1) 100%);
+  }
+  75% {
+    background: linear-gradient(135deg, 
+      rgba(16, 185, 129, 0.1) 0%, 
+      rgba(249, 115, 22, 0.1) 50%, 
+      rgba(168, 85, 247, 0.1) 100%);
+  }
+}
+
+@keyframes brandColorShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+}
+
+@keyframes underlineColorShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  33% {
+    background-position: 100% 50%;
+  }
+  66% {
+    background-position: 50% 100%;
+  }
+}
+
+@keyframes linkColorShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes loginButtonShift {
+  0%, 100% {
+    background-position: 0% 50%;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  }
+  25% {
+    background-position: 100% 50%;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+  }
+  50% {
+    background-position: 50% 100%;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+  }
+  75% {
+    background-position: 50% 0%;
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+  }
+}
+
 /* Add body padding to account for fixed navbar */
 body {
   padding-top: 80px;
@@ -223,7 +398,7 @@ body {
 
 /* Micro-interactions */
 .navbar-links a:focus {
-  outline: 2px solid #6366f1;
+  outline: 2px solid #0ea5e9;
   outline-offset: 2px;
 }
 

@@ -1,0 +1,492 @@
+/* src/components/CreateBot.css */
+
+.create-bot-container {
+  min-height: 100vh;
+  padding: 0rem 2rem 4rem;
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(132, 146, 83, 0.08) 0%, 
+    rgba(199, 184, 154, 0.12) 50%, 
+    rgba(163, 127, 83, 0.08) 100%);
+  animation: backgroundShift 15s ease-in-out infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-bot-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 15% 25%, rgba(132, 146, 83, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 75%, rgba(199, 184, 154, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 45% 60%, rgba(163, 127, 83, 0.06) 0%, transparent 60%);
+  animation: floatingOrbs 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+.create-bot-container h2 {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 3rem;
+  text-align: center;
+  background: linear-gradient(135deg, #849253, #c7b89a, #a37f53);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleGlow 6s ease-in-out infinite;
+  position: relative;
+}
+
+.create-bot-container h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(135deg, #849253, #a37f53);
+  border-radius: 2px;
+  animation: underlineGlow 4s ease-in-out infinite;
+}
+
+.create-bot-form {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem 1.8rem;
+  width: 100%;
+  max-width: 450px; /* reduced from 600px */
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+  animation: formSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
+}
+
+.create-bot-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+    rgba(132, 146, 83, 0.08) 0%, 
+    rgba(199, 184, 154, 0.05) 50%, 
+    rgba(163, 127, 83, 0.08) 100%);
+  border-radius: 20px;
+  z-index: -1;
+  animation: formGlow 8s ease-in-out infinite;
+}
+
+.create-bot-form:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+
+/* Form Input Styles */
+.create-bot-form input,
+.create-bot-form textarea {
+  width: 100%;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid rgba(132, 146, 83, 0.2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  color: #2d3748;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  position: relative;
+  resize: vertical;
+}
+
+.create-bot-form input::placeholder,
+.create-bot-form textarea::placeholder {
+  color: rgba(45, 55, 72, 0.6);
+  font-weight: 400;
+}
+
+.create-bot-form input:focus,
+.create-bot-form textarea:focus {
+  outline: none;
+  border-color: #849253;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 0 0 4px rgba(132, 146, 83, 0.1),
+    0 8px 25px rgba(132, 146, 83, 0.15);
+  transform: translateY(-2px);
+}
+
+.create-bot-form input:hover,
+.create-bot-form textarea:hover {
+  border-color: rgba(132, 146, 83, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.create-bot-form input:valid,
+.create-bot-form textarea:valid {
+  border-color: rgba(132, 146, 83, 0.5);
+  background: rgba(132, 146, 83, 0.05);
+}
+
+/* Special styling for textarea */
+.create-bot-form textarea {
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+.create-bot-form textarea:focus {
+  min-height: 140px;
+}
+
+/* API Key input special styling */
+.create-bot-form input[name="apiKey"] {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(199, 184, 154, 0.3);
+  position: relative;
+}
+
+.create-bot-form input[name="apiKey"]:focus {
+  border-color: #c7b89a;
+  box-shadow: 
+    0 0 0 4px rgba(199, 184, 154, 0.1),
+    0 8px 25px rgba(199, 184, 154, 0.15);
+}
+
+.create-bot-form input[name="apiKey"]::before {
+  content: '🔐';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+/* Submit Button */
+.create-bot-form button {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #849253, #a37f53);
+  background-size: 300% 300%;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(132, 146, 83, 0.3);
+  animation: buttonColorShift 5s ease-in-out infinite;
+  font-family: inherit;
+}
+
+.create-bot-form button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.create-bot-form button:hover::before {
+  left: 100%;
+}
+
+.create-bot-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(132, 146, 83, 0.4);
+  background-position: 100% 50%;
+}
+
+.create-bot-form button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(132, 146, 83, 0.3);
+}
+
+.create-bot-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Loading state */
+.create-bot-form button:disabled::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Input Labels (floating effect) */
+.create-bot-form input:focus::placeholder,
+.create-bot-form textarea:focus::placeholder {
+  transform: translateY(-25px);
+  font-size: 0.8rem;
+  color: #849253;
+  opacity: 1;
+}
+
+/* Success/Error states for enhanced UX */
+.create-bot-form input.error,
+.create-bot-form textarea.error {
+  border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.05);
+  animation: shake 0.5s ease-in-out;
+}
+
+.create-bot-form input.success,
+.create-bot-form textarea.success {
+  border-color: #059669;
+  background: rgba(5, 150, 105, 0.05);
+}
+
+/* Animations */
+@keyframes backgroundShift {
+  0%, 100% {
+    background: linear-gradient(135deg, 
+      rgba(132, 146, 83, 0.08) 0%, 
+      rgba(199, 184, 154, 0.12) 50%, 
+      rgba(163, 127, 83, 0.08) 100%);
+  }
+  25% {
+    background: linear-gradient(135deg, 
+      rgba(154, 121, 80, 0.08) 0%, 
+      rgba(182, 152, 121, 0.12) 50%, 
+      rgba(106, 124, 95, 0.08) 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, 
+      rgba(139, 155, 103, 0.08) 0%, 
+      rgba(210, 192, 163, 0.12) 50%, 
+      rgba(131, 109, 73, 0.08) 100%);
+  }
+  75% {
+    background: linear-gradient(135deg, 
+      rgba(174, 160, 125, 0.08) 0%, 
+      rgba(118, 133, 79, 0.12) 50%, 
+      rgba(145, 118, 89, 0.08) 100%);
+  }
+}
+
+@keyframes floatingOrbs {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  33% { transform: translateY(-25px) rotate(120deg) scale(1.1); }
+  66% { transform: translateY(15px) rotate(240deg) scale(0.9); }
+}
+
+@keyframes titleGlow {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 50% 100%; }
+  75% { background-position: 50% 0%; }
+}
+
+@keyframes underlineGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(132, 146, 83, 0.3);
+    background-position: 0% 50%;
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(163, 127, 83, 0.5);
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes formGlow {
+  0%, 100% {
+    background: linear-gradient(135deg, 
+      rgba(132, 146, 83, 0.08) 0%, 
+      rgba(199, 184, 154, 0.05) 50%, 
+      rgba(163, 127, 83, 0.08) 100%);
+  }
+  50% {
+    background: linear-gradient(135deg, 
+      rgba(163, 127, 83, 0.12) 0%, 
+      rgba(132, 146, 83, 0.08) 50%, 
+      rgba(199, 184, 154, 0.10) 100%);
+  }
+}
+
+@keyframes buttonColorShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .create-bot-container {
+    padding: 4rem 1rem 2rem;
+  }
+  
+  .create-bot-form {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .create-bot-container h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .create-bot-form input,
+  .create-bot-form textarea {
+    padding: 1rem 1.25rem;
+    font-size: 0.95rem;
+  }
+  
+  .create-bot-form button {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-bot-form {
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+  }
+  
+  .create-bot-container h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .create-bot-form input,
+  .create-bot-form textarea {
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .create-bot-form textarea {
+    min-height: 100px;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .create-bot-form {
+    background: rgba(17, 24, 39, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .create-bot-form input,
+  .create-bot-form textarea {
+    background: rgba(255, 255, 255, 0.05);
+    color: #e5e7eb;
+    border-color: rgba(132, 146, 83, 0.3);
+  }
+  
+  .create-bot-form input::placeholder,
+  .create-bot-form textarea::placeholder {
+    color: rgba(229, 231, 235, 0.6);
+  }
+  
+  .create-bot-form input:focus,
+  .create-bot-form textarea:focus {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Accessibility improvements */
+.create-bot-form input:focus-visible,
+.create-bot-form textarea:focus-visible,
+.create-bot-form button:focus-visible {
+  outline: 2px solid #849253;
+  outline-offset: 2px;
+}
+
+/* Enhanced visual feedback */
+.create-bot-form input:not(:placeholder-shown):valid {
+  border-color: #059669;
+  background: rgba(5, 150, 105, 0.03);
+}
+
+.create-bot-form input:not(:placeholder-shown):invalid {
+  border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.03);
+}
+
+/* Progressive enhancement */
+@supports (backdrop-filter: blur(10px)) {
+  .create-bot-form input,
+  .create-bot-form textarea {
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Custom scrollbar for textarea */
+.create-bot-form textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.create-bot-form textarea::-webkit-scrollbar-track {
+  background: rgba(132, 146, 83, 0.1);
+  border-radius: 4px;
+}
+
+.create-bot-form textarea::-webkit-scrollbar-thumb {
+  background: rgba(132, 146, 83, 0.3);
+  border-radius: 4px;
+}
+
+.create-bot-form textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(132, 146, 83, 0.5);
+}
