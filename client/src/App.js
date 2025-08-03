@@ -9,6 +9,11 @@ import Navbar from './components/Navbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Signup from './pages/Signup';
+import Chat from './pages/Chat';
+
+// inside your <Routes>
+
+
 
 function App() {
   return (
@@ -21,6 +26,7 @@ function App() {
         <Route path="/bot-preview" element={<BotPreview />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Signup" element={<Signup />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
       <ToastContainer />
     </>

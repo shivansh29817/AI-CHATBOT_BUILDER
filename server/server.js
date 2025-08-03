@@ -3,30 +3,34 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import cors from 'cors';
+
 import botRoutes from './routes/botRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
 
+// ✅ Load environment variables
 dotenv.config();
-import cors from "cors";
 
-
+// ✅ Initialize Express app
 const app = express();
+
+// ✅ Middleware
 app.use(cors());
+app.use(express.json()); // Parse JSON bodies
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// Test route
+// ✅ Test route
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-// Bot routes
+// ✅ Routes
 app.use('/api/bots', botRoutes);
+app.use('/api/chat', chatRoutes); // Add authMiddleware later if needed
 
-// Port
+// ✅ Port
 const PORT = process.env.PORT || 5000;
 
-// Connect to MongoDB and start server
+// ✅ Connect to MongoDB and start server
 mongoose
   .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
