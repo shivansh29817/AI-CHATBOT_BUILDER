@@ -184,12 +184,12 @@ body {
 
 .bots-table th:nth-child(3),
 .bots-table td:nth-child(3) {
-  width: 32.5%;
+  width: 22.5%;
 }
 
 .bots-table th:nth-child(4),
 .bots-table td:nth-child(4) {
-  width: 32.5%;
+  width: 22.5%;
 }
 
 /* Table Header */
