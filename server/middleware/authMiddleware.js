@@ -22,18 +22,24 @@ if (!admin.apps.length) {
 export const protect = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
+  console.log('🔐 protect() middleware called');
+  console.log('📎 Authorization Header:', authHeader);
+
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    console.log('❌ No Bearer token found');
     return res.status(401).json({ message: 'Not authorized, no token' });
   }
 
   const token = authHeader.split(' ')[1];
+  console.log('🔑 Extracted Token:', token.slice(0, 10) + '...');
 
   try {
     const decodedToken = await admin.auth().verifyIdToken(token);
-    req.user = decodedToken; // ✅ Contains uid, email, etc.
+    console.log('✅ Token verified:', decodedToken.uid);
+    req.user = decodedToken;
     next();
   } catch (error) {
-    console.error('Token verification failed:', error.message);
+    console.error('❌ Token verification failed:', error.message);
     res.status(401).json({ message: 'Not authorized, invalid token' });
   }
 };

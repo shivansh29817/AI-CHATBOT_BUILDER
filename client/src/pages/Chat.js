@@ -25,7 +25,7 @@ const Chat = () => {
       const token = await auth.currentUser.getIdToken();
 
       const res = await axios.post(
-        'http://localhost:5000/api/chat/send',
+        'http://localhost:5000/api/chat',
         {
           prompt: input,
           botId: botId, // Optional
