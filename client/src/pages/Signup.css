@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  padding-top: px;
   position: relative;
   background: linear-gradient(135deg, 
     rgba(132, 146, 83, 0.1) 0%, 
@@ -291,7 +292,7 @@
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% { transform: rotate(0deg); }
 }
 
 /* Responsive Design */

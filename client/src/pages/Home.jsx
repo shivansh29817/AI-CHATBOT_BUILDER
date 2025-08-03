@@ -78,7 +78,8 @@ const Home = () => {
       <div className="final-cta">
         <h2>Ready to Build Your AI Assistant?</h2>
         <p>Join thousands of businesses already using our platform</p>
-        <a href="/create-bot" className="cta-button primary large">Build Your Bot Now</a>
+        {/* <a href="/create-bot" className="cta-button primary large">Build Your Bot Now</a> */}
+        <Link to="./create-bot" className="cta-button primary large">Build Your Bot Now</Link>
       </div>
     </div>
   );
