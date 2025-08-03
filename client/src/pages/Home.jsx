@@ -1,5 +1,7 @@
 import React from 'react';
 import './Home.css'; // Import external CSS for styling
+import { Link } from 'react-router-dom';
+
 
 const Home = () => {
   return (
@@ -10,8 +12,9 @@ const Home = () => {
           Create your own personalized chatbot with custom behavior, tone, and personality — no coding required!
         </p>
         <div className="cta-buttons">
-          <a href="/login" className="cta-button primary">Get Started</a>
-          <a href="/demo" className="cta-button secondary">Try Demo</a>
+          {/* <Link to ="./Login" className="cta-button primary">Get Started</Link> */}
+          <Link to="./login" className="cta-button primary">Get Started</Link>
+          <Link to="./SignUp" className="cta-button primary">Try Demo</Link>
         </div>
       </div>
 
