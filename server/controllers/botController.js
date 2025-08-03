@@ -53,3 +53,25 @@ export const getUserBots = async (req, res) => {
     res.status(500).json({ message: 'Server error while fetching bots' });
   }
 };
+
+// @desc    Delete a bot by ID for the logged-in user
+// @route   DELETE /api/bots/:id
+// @access  Private
+export const deleteBot = async (req, res) => {
+  try {
+    const botId = req.params.id;
+    const userId = req.user.uid;
+
+    const bot = await Bot.findOne({ _id: botId, createdBy: userId });
+
+    if (!bot) {
+      return res.status(404).json({ message: 'Bot not found or unauthorized.' });
+    }
+
+    await Bot.deleteOne({ _id: botId });
+    res.status(200).json({ message: 'Bot deleted successfully.' });
+  } catch (error) {
+    console.error('❌ Error deleting bot:', error.message);
+    res.status(500).json({ message: 'Server error while deleting bot.' });
+  }
+};

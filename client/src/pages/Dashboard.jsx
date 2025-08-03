@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import './Dashboard.css';
-import BASE_URL from '../config'; // ✅ Import the centralized base URL
+import BASE_URL from '../config'; // ✅ Centralized base URL
 
 const Dashboard = () => {
   const [bots, setBots] = useState([]);
@@ -39,24 +39,86 @@ const Dashboard = () => {
     return () => unsubscribe();
   }, []);
 
+  const handleDelete = async (botId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this bot?');
+    if (!confirmDelete) return;
+
+    try {
+      const auth = getAuth();
+      const user = auth.currentUser;
+
+      if (!user) {
+        console.error('❌ No user logged in for deletion');
+        return;
+      }
+
+      const token = await user.getIdToken();
+
+      await axios.delete(`${BASE_URL}/api/bots/${botId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setBots((prevBots) => prevBots.filter((bot) => bot._id !== botId));
+      console.log(`🗑 Bot ${botId} deleted`);
+    } catch (error) {
+      console.error('❌ Failed to delete bot:', error);
+      alert('Failed to delete bot. Please try again.');
+    }
+  };
+
   return (
     <div className="dashboard-container">
       <h2>Your Bots</h2>
       {loading ? (
-        <p>Loading...</p>
+        <div className="loading">
+          <div className="loading-spinner"></div>
+          <p>Loading your bots...</p>
+        </div>
       ) : bots.length === 0 ? (
-        <p>No bots created yet.</p>
+        <div className="empty-state">
+          <p>No bots created yet.</p>
+          <small>Create your first bot to get started!</small>
+        </div>
       ) : (
-        <ul className="bot-list">
-          {bots.map((bot) => (
-            <li key={bot._id} className="bot-card">
-              <h3>{bot.name}</h3>
-              <p><strong>Tone:</strong> {bot.tone || 'N/A'}</p>
-              <p><strong>Persona:</strong> {bot.persona || 'N/A'}</p>
-              <p><strong>Sample Prompt:</strong> {bot.samplePrompt || 'N/A'}</p>
-            </li>
-          ))}
-        </ul>
+        <div className="table-container">
+          <table className="bots-table">
+            <thead>
+              <tr>
+                <th>Bot Name</th>
+                <th>Tone</th>
+                <th>Persona</th>
+                <th>Sample Prompt</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bots.map((bot, index) => (
+                <tr key={bot._id} className={index % 2 === 0 ? 'row-even' : 'row-odd'}>
+                  <td className="bot-name">
+                    <div className="name-cell">
+                      <span className="bot-icon">🤖</span>
+                      <span className="name-text">{bot.name}</span>
+                    </div>
+                  </td>
+                  <td className="tone-cell">
+                    <span className="tone-badge">{bot.tone || 'N/A'}</span>
+                  </td>
+                  <td className="persona-cell">{bot.persona || 'N/A'}</td>
+                  <td className="prompt-cell">
+                    <div className="prompt-text">{bot.samplePrompt || 'N/A'}</div>
+                  </td>
+                  <td>
+                    <button className="delete-btn" onClick={() => handleDelete(bot._id)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
