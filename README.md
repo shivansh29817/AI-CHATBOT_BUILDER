@@ -155,4 +155,4 @@ Project Link: [https://github.com/shivansh29817/AI-Chatbot_Builder](https://gith
 
 ---
 
-<p align="center">Made with ❤️ by Shivansh Mishra</p>
+<p align="center">Made with ❤️ by Shivansh</p>
