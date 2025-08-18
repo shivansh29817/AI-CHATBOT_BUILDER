@@ -55,7 +55,7 @@ AI Chatbot Builder is a powerful platform that allows users to create, customize
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/AI-Chatbot_Builder.git
+   git clone https://github.com/shivansh29817/AI-Chatbot_Builder.git
    cd AI-Chatbot_Builder
    ```
 
@@ -149,9 +149,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📞 Contact
 
-Shivansh Mishra - [@shivansh](https://github.com/shivansh) - shivansh@example.com
+Shivansh Mishra - [@shivansh](https://github.com/shivansh29817) - shivansh29817@gmail.com
 
-Project Link: [https://github.com/yourusername/AI-Chatbot_Builder](https://github.com/yourusername/AI-Chatbot_Builder)
+Project Link: [https://github.com/shivansh29817/AI-Chatbot_Builder](https://github.com/shivansh29817/AI-Chatbot_Builder)
 
 ---
 
