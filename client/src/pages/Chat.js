@@ -26,6 +26,7 @@ const Chat = () => {
 
       const res = await axios.post(
         'https://ai-chatbot-builder-1.onrender.com/api/chat',
+        // 'http://localhost:5000/api/chat',
         {
           prompt: input,
           botId: botId, // Optional

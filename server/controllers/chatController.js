@@ -1,6 +1,7 @@
 // controllers/chatController.js
 import axios from 'axios';
 import Bot from '../models/Bot.js';
+import { decryptApiKey } from '../utils/crypto.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -25,11 +26,23 @@ export const generateChatResponse = async (req, res) => {
       return res.status(404).json({ error: 'No bot found for this user.' });
     }
 
-    const { apiKey: userApiKey, tone, persona } = bot;
+    const { apiKey: encryptedUserApiKey, tone, persona } = bot;
+
+    // Decrypt the user's API key if it exists
+    let decryptedUserApiKey = null;
+    if (encryptedUserApiKey && encryptedUserApiKey.trim() !== '') {
+      try {
+        decryptedUserApiKey = decryptApiKey(encryptedUserApiKey);
+        console.log('🔓 API key decrypted successfully');
+      } catch (error) {
+        console.error('❌ Failed to decrypt API key:', error.message);
+        return res.status(500).json({ error: 'Failed to decrypt API key' });
+      }
+    }
 
     // Fallback to your system key if user didn't provide one
-    const apiKeyToUse = userApiKey && userApiKey.trim() !== ''
-      ? userApiKey
+    const apiKeyToUse = decryptedUserApiKey && decryptedUserApiKey.trim() !== ''
+      ? decryptedUserApiKey
       : process.env.DEFAULT_API_KEY;
 
     if (!apiKeyToUse) {
@@ -37,7 +50,7 @@ export const generateChatResponse = async (req, res) => {
       return res.status(400).json({ error: 'No valid API key available.' });
     }
 
-    console.log(`🔑 Using ${userApiKey ? 'user-provided' : 'default'} API key`);
+    console.log(`🔑 Using ${decryptedUserApiKey ? 'user-provided' : 'default'} API key`);
 
     const finalPrompt = `
 You are a chatbot with the following configuration:

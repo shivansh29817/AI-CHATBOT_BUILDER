@@ -1,4 +1,5 @@
 import Bot from '../models/Bot.js';
+import { encryptApiKeyReversible } from '../utils/crypto.js';
 
 // @desc    Create a new chatbot
 // @route   POST /api/bots
@@ -15,12 +16,24 @@ export const createBot = async (req, res) => {
       return res.status(400).json({ message: 'Bot name is required.' });
     }
 
+    // Encrypt the API key before storing it
+    let encryptedApiKey = null;
+    if (apiKey && apiKey.trim() !== '') {
+      try {
+        encryptedApiKey = encryptApiKeyReversible(apiKey);
+        console.log('🔐 API key encrypted successfully');
+      } catch (error) {
+        console.error('❌ Failed to encrypt API key:', error.message);
+        return res.status(500).json({ message: 'Failed to encrypt API key' });
+      }
+    }
+
     const newBot = new Bot({
       name,
       tone,
       persona,
       samplePrompt,
-      apiKey,
+      apiKey: encryptedApiKey, // Store encrypted API key
       createdBy: req.user.uid, // ✅ Store UID for filtering
     });
 
